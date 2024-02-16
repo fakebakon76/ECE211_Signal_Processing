@@ -7,8 +7,9 @@ close all;
 clear;
 
 h = DiscreteVector(-1, [2 3 4 2 5]);
-x = DiscreteVector(-2, [2 4 5 1 2]);
+x = DiscreteVector(-2, [3 4 5 1 2]);
 y = convolve(h,x);
+
 
 createPlot(h);
 createPlot(x);

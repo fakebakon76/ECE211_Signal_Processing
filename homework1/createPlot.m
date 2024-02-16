@@ -8,8 +8,9 @@ function createPlot(vect)
     
     n = linspace(start, finish, length);
     
-    % Plotting
     figure;
+
+    % Plotting
     stem(n, data);
     xlim([start-1,start+length]);
     xticks(start-1:start+length);
