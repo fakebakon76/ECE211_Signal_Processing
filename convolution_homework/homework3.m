@@ -10,7 +10,6 @@ h = DiscreteVector(-1, [2 3 4 2 5]);
 x = DiscreteVector(-2, [3 4 5 1 2]);
 y = convolve(h,x);
 
-
-createPlot(h);
-createPlot(x);
-createPlot(y);
+createPlot(h, 'hPlot');
+createPlot(x, 'xPlot');
+createPlot(y, 'convolutionPlot');

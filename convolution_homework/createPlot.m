@@ -1,4 +1,4 @@
-function createPlot(vect)
+function createPlot(vect, name)
     
     % Making plot variables
     start  = vect.duration(1);
@@ -8,7 +8,7 @@ function createPlot(vect)
     
     n = linspace(start, finish, length);
     
-    figure;
+    fig = figure;
 
     % Plotting
     stem(n, data);
@@ -21,5 +21,8 @@ function createPlot(vect)
     end
 
     xlabel('n');
-    title('Stem Plot');
+    title(name);
+    name = append(name, '.png');
+
+    saveas(fig, name);
 end
