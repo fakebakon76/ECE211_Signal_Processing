@@ -1,3 +1,6 @@
+% generateA.m
+% Copywrite (C) Noam Schuck <noam.schuck@gmail.com>
+
 function A = generateA(M, N, thetas, const, PdB, PndB)
     S = exp(-j*2*pi*const*(0:M-1)'.*cos(thetas+zeros(M,1)))/sqrt(M); % Steering Matrix
     [tmp, L] = size(thetas);

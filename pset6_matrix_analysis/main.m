@@ -1,3 +1,6 @@
+% main.m
+% Copywrite (C) Noam Schuck <noam.schuck@gmail.com>
+
 clc;
 clear;
 close all;
@@ -19,3 +22,12 @@ A2 = generateA(M, N, thetas2, d/lambda, PdB, PndB);
 
 R1 = A1*A1'/N;
 R2 = A2*A2'/N;
+
+%% Part 2
+[svals1, evals1] = analyze(A1,R1);
+[svals2, evals2] = analyze(A2,R2);
+
+plotThis(svals1, evals1, 'Plots for Experiment 1');
+plotThis(svals2, evals2, 'Plots for Experiment 2');
+   
+
