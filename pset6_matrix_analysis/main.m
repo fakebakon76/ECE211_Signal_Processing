@@ -39,4 +39,10 @@ eval_ratios = [evals1(3)/evals1(4) evals2(3)/evals2(4)];
 Pn1 = eye(M) - U1*U1';
 Pn2 = eye(M) - U2*U2';
 
+R1 = (A1*A1')/N;
+R2 = (A2*A2')/N;
 
+theta_sweep = 0:.2:180;
+S = exp(-j*2*pi*(d/lambda)*(0:M-1)'.*cos(theta_sweep*(2*pi/180)+zeros(M,1)))/sqrt(M);
+S1_MUSIC = ones([1, sum(size(theta_sweep))-1])./(S'*Pn1*S);
+S2_MUSIC = ones([1, sum(size(theta_sweep))-1])./(S'*Pn2*S);
