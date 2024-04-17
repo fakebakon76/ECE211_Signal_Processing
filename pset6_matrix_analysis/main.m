@@ -24,10 +24,19 @@ R1 = A1*A1'/N;
 R2 = A2*A2'/N;
 
 %% Part 2
-[svals1, evals1] = analyze(A1,R1);
-[svals2, evals2] = analyze(A2,R2);
+[svals1, evals1, U1] = analyze(A1,R1);
+[svals2, evals2, U2] = analyze(A2,R2);
 
-plotThis(svals1, evals1, 'Plots for Experiment 1');
-plotThis(svals2, evals2, 'Plots for Experiment 2');
-   
+%plotThis(svals1, evals1, 'Plots for Experiment 1');
+%plotThis(svals2, evals2, 'Plots for Experiment 2');
+
+svals1 = diag(svals1);
+svals2 = diag(svals2);
+
+sval_ratios = [svals1(3)/svals1(4) svals2(3)/svals2(4)];
+eval_ratios = [evals1(3)/evals1(4) evals2(3)/evals2(4)];
+
+Pn1 = eye(M) - U1*U1';
+Pn2 = eye(M) - U2*U2';
+
 
