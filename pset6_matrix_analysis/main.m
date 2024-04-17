@@ -44,5 +44,34 @@ R2 = (A2*A2')/N;
 
 theta_sweep = 0:.2:180;
 S = exp(-j*2*pi*(d/lambda)*(0:M-1)'.*cos(theta_sweep*(2*pi/180)+zeros(M,1)))/sqrt(M);
-S1_MUSIC = ones([1, sum(size(theta_sweep))-1])./(S'*Pn1*S);
-S2_MUSIC = ones([1, sum(size(theta_sweep))-1])./(S'*Pn2*S);
+
+S1_MUSIC = sum(eye(sum(size(theta_sweep))-1) .* real(ones([1, sum(size(theta_sweep))-1])./(S'*Pn1*S)));
+S2_MUSIC = sum(eye(sum(size(theta_sweep))-1) .* real(ones([1, sum(size(theta_sweep))-1])./(S'*Pn2*S)));
+S1_MVDR  = sum(eye(sum(size(theta_sweep))-1) .* real(ones([1, sum(size(theta_sweep))-1])./(S'*inv(R1)*S)));
+S2_MVDR  = sum(eye(sum(size(theta_sweep))-1) .* real(ones([1, sum(size(theta_sweep))-1])./(S'*inv(R2)*S)));
+
+fig = figure;
+sgtitle('Matrix Analysis');
+subplot(2,2,1);
+plot(S1_MUSIC);
+title('MUSIC: Experiment 1');
+
+subplot(2,2,3);
+plot(S2_MUSIC);
+title('MUSIC: Experiment 2');
+
+subplot(2,2,2);
+plot(S1_MVDR);
+title('MVDR: Experiment 1');
+
+subplot(2,2,4);
+plot(S2_MVDR);
+title('MVDR: Experiment 2');
+
+
+SMUSIC_3 = zeros(size(theta_sweep));
+for i = 1:length(theta_sweep)
+    AOA_1 = theta_sweep(i) * pi / 180;
+    s_1 = exp(-1j * 2 * pi * d/lambda * cos(AOA_1) * (0:M-1).') / sqrt(M);
+    SMUSIC_3(i) = 1 / (s_1' * Pn1 * s_1);
+end
