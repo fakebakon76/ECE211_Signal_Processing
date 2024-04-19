@@ -97,6 +97,8 @@ for i = 1:length(thetas2)
     xline(thetas2(i), 'r--', thetas2(i));
 end
 
+saveas(fig, "analysis.png");
+
 % Relations between lambda and svds -> sigma_i^2=N*lambda_i
 disp(svals1(1)^2/evals1(1));
 disp(svals1(2)^2/evals1(2));
