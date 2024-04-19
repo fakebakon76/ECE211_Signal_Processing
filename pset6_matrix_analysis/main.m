@@ -39,9 +39,6 @@ eval_ratios = [evals1(3)/evals1(4) evals2(3)/evals2(4)];
 Pn1 = eye(M) - U1(:, [1:3])*U1(:, [1:3])';
 Pn2 = eye(M) - U2(:, [1:3])*U2(:, [1:3])';
 
-R1 = (A1*A1')/N;
-R2 = (A2*A2')/N;
-
 theta_sweep = 0:.2:180;
 S = exp(-1j*2*pi*(d/lambda)*(0:M-1)'.*cos(theta_sweep*(pi/180)))/sqrt(M);
 
@@ -61,6 +58,7 @@ for i = 1:length(theta_sweep)
 end
 
 fig = figure;
+fig.Position = [1500, 1500, 1500, 1500];
 sgtitle('Matrix Analysis');
 
 subplot(2,2,1);
@@ -98,3 +96,12 @@ ylabel('S_{MVDR}');
 for i = 1:length(thetas2)
     xline(thetas2(i), 'r--', thetas2(i));
 end
+
+% I definitely see clear peaks for Experiment 1, but for Experiment 2, where the angles of arrival are close,
+% it is hard to find two peaks. MUSIC is better than MVDR because the graph is much smoother between the peaks
+% while with MVDR it is rough and bumpy. That way if you want to find the angles of arrival with an algorithm
+% that looks for peaks in the data, you can easily use the graph from the MUSIC algorithm while it would be a
+% bit harder for the MVDR algorithm because it is not smooth.
+
+%% Part III
+
