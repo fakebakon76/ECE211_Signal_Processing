@@ -17,8 +17,8 @@ PndB    = 10;
 thetas1 = [10 25 70];
 thetas2 = [10 12 70];
 
-A1 = generateA(M, N, thetas1*pi/180, d/lambda, PdB, PndB);
-A2 = generateA(M, N, thetas2*pi/180, d/lambda, PdB, PndB);
+[S1, A1] = generateA(M, N, thetas1*pi/180, d/lambda, PdB, PndB);
+[S2, A2] = generateA(M, N, thetas2*pi/180, d/lambda, PdB, PndB);
 
 R1 = A1*A1'/N;
 R2 = A2*A2'/N;
@@ -40,7 +40,7 @@ Pn1 = eye(M) - U1(:, [1:3])*U1(:, [1:3])';
 Pn2 = eye(M) - U2(:, [1:3])*U2(:, [1:3])';
 
 theta_sweep = 0:.2:180;
-S = exp(-1j*2*pi*(d/lambda)*(0:M-1)'.*cos(theta_sweep*(pi/180)))/sqrt(M);
+S = exp(-1j*2*pi*(d/lambda)*(0:M-1)'*cos(theta_sweep*(pi/180)))/sqrt(M);
 
 S1_MUSIC = zeros(size(theta_sweep));
 S2_MUSIC = zeros(size(theta_sweep));
@@ -97,6 +97,14 @@ for i = 1:length(thetas2)
     xline(thetas2(i), 'r--', thetas2(i));
 end
 
+% Relations between lambda and svds -> sigma_i^2=N*lambda_i
+disp(svals1(1)^2/evals1(1));
+disp(svals1(2)^2/evals1(2));
+disp(svals1(3)^2/evals1(3));
+disp(svals2(1)^2/evals2(1));
+disp(svals2(2)^2/evals2(2));
+disp(svals2(3)^2/evals2(3));
+
 % I definitely see clear peaks for Experiment 1, but for Experiment 2, where the angles of arrival are close,
 % it is hard to find two peaks. MUSIC is better than MVDR because the graph is much smoother between the peaks
 % while with MVDR it is rough and bumpy. That way if you want to find the angles of arrival with an algorithm
@@ -104,4 +112,9 @@ end
 % bit harder for the MVDR algorithm because it is not smooth.
 
 %% Part III
+res1 = S1*S1';
+res2 = S2*S2';
+abs(res1)
+abs(res2)
 
+% the closer this is to zero the easier it is to isolate the signals
